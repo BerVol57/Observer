@@ -67,18 +67,24 @@ class ListenerA(Listener):
     plus: int = None
 
     def update(self, event: EventManager) -> None:
-        print("ListenerA has been notified")
-        if event._state == "plus":
-            self.plus = event.k
+        if issubclass(type(event), EventManager):
+            print("ListenerA has been notified")
+            if event._state == "plus":
+                self.plus = event.k
+        else:
+            raise "The [event] is of the wrong type"
 
 
 class ListenerB(Listener):
     minus: int = None
 
     def update(self, event: EventManager) -> None:
-        print("ListenerB has been notified")
-        if event._state == "minus":
-            self.minus = event.k
+        if issubclass(type(event), EventManager):
+            print("ListenerB has been notified")
+            if event._state == "minus":
+                self.minus = event.k
+        else:
+            raise "The [event] is of the wrong type"
 
 
 if __name__ == "__main__":
