@@ -3,6 +3,14 @@ from main import *
 
 
 class MyTestCase(unittest.TestCase):
+    def test_subscribe(self):
+        _editor = Editor()
+        self.assertRaises(TypeError, _editor.subscribe, None)
+        listener_a = ListenerA()
+        _editor.subscribe(listener_a)
+        self.assertRaises(TypeError, _editor.subscribe, listener_a)
+        listener_b = ListenerB()
+        self.assertRaises(TypeError, _editor.unsubscribe, listener_b)
 
     def test_editor_action(self):
         _editor = Editor()

@@ -25,12 +25,21 @@ class Editor(EventManager):
     k = 0
 
     def subscribe(self, listener: Listener) -> None:
-        print("Editor: Listener is subscribed")
-        self._listeners.append(listener)
+        if issubclass(type(listener), Listener):
+            if listener not in self._listeners:
+                print("Editor: Listener is subscribed")
+                self._listeners.append(listener)
+            else:
+                raise "The [listener] has already subscribed"
+        else:
+            raise "The [listener] is of the wrong type"
 
     def unsubscribe(self, listener: Listener) -> None:
-        print("Editor: Listener is subscribed")
-        self._listeners.remove(listener)
+        if listener in self._listeners:
+            print("Editor: Listener is subscribed")
+            self._listeners.remove(listener)
+        else:
+            raise "The [listener] is not subscribed"
 
     def notify(self) -> None:
         print("Editor: Notifying listeners...")
