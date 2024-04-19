@@ -63,28 +63,31 @@ class Listener(ABC):
         pass
 
 
+def is_type_EventManager(event) -> bool:
+    if issubclass(type(event), EventManager):
+        return True
+    else:
+        raise "The [event] is of the wrong type"
+
+
 class ListenerA(Listener):
     plus: int = None
 
     def update(self, event: EventManager) -> None:
-        if issubclass(type(event), EventManager):
+        if is_type_EventManager(event):
             print("ListenerA has been notified")
             if event._state == "plus":
                 self.plus = event.k
-        else:
-            raise "The [event] is of the wrong type"
 
 
 class ListenerB(Listener):
     minus: int = None
 
     def update(self, event: EventManager) -> None:
-        if issubclass(type(event), EventManager):
+        if is_type_EventManager(event):
             print("ListenerB has been notified")
             if event._state == "minus":
                 self.minus = event.k
-        else:
-            raise "The [event] is of the wrong type"
 
 
 if __name__ == "__main__":
